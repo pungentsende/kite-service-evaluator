@@ -1,0 +1,9 @@
+{
+  "name": "weather-feed",
+  "network": "kite-testnet",
+  "payTo": "0x0b4825f1280d32ce58f0ca0b46808f4d34ac8686",
+  "routes": [
+    { "path": "/v1/current", "amount": "0.001" },
+    { "path": "/v1/forecast", "amount": "0.002" }
+  ]
+}
