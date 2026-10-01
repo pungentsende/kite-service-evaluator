@@ -1,6 +1,6 @@
 import unittest
 
-from kite_evaluator.engine import evaluate
+from kite_evaluator.engine import evaluate, score
 
 
 BASE = {"name": "demo", "network": "kite-testnet", "payTo": "0x0b4825f1280d32ce58f0ca0b46808f4d34ac8686", "routes": [{"path": "/v1/data", "amount": "0.01"}]}
@@ -18,3 +18,6 @@ class EvaluatorTests(unittest.TestCase):
 
     def test_does_not_accept_a_non_evm_recipient(self):
         self.assertTrue(any(item.code == "invalid-pay-to" for item in evaluate({**BASE, "payTo": "alice"})))
+
+    def test_score_is_machine_readable(self):
+        self.assertEqual(score(BASE), {"score": 100, "errors": 0, "routes": 1})

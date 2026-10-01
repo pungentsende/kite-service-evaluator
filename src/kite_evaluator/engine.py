@@ -47,3 +47,10 @@ def evaluate(manifest: dict[str, Any]) -> list[Finding]:
     if not routes:
         findings.append(Finding("no-routes", "at least one payable route is required"))
     return findings
+
+
+def score(manifest: dict[str, Any]) -> dict[str, int]:
+    """Compact, stable readiness score for CI summaries and dashboards."""
+    findings = evaluate(manifest)
+    errors = sum(finding.level == "error" for finding in findings)
+    return {"score": max(0, 100 - errors * 20), "errors": errors, "routes": len(manifest.get("routes", [])) if isinstance(manifest.get("routes", []), list) else 0}
